@@ -27,10 +27,16 @@ public class Deck {
     public int getCard() {
         for(int i = 0; i < deck.length; i++) {
             if(deck[i] != 0){
-                return deck[i];
+                int temp = deck[i];
+                deck[i] = 0;
+                return temp;
             }
         }
         return 0; // will have to add reshuffling of the discard pile
+    }
+
+    public void reshuffle(){
+
     }
     
 }
