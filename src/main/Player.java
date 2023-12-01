@@ -7,8 +7,8 @@ public class Player {
         
     }
 
-    public int[] show(){
-        return hand;
+    public void show(){
+        System.out.println(hand); 
     }
 
     public int getPoint(){
