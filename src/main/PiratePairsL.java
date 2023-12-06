@@ -9,6 +9,7 @@ public class PiratePairsL {
 
     public static void main(String[] args) {
         boolean gameOn = true;
+        int cnt = 0; //remove later
         
     
         Deck deck = new Deck();
@@ -25,13 +26,15 @@ public class PiratePairsL {
 
                 if (p[i].numCards() < 1) { //forced draw if the player has no card
                     p[i].draw(deck.getCard());
+                    cnt++;
                 } else {
 
                     if (drawSuggested(p[i], deck)) { //checking strategy
                         p[i].draw(deck.getCard()); //should draw
+                        cnt++;
                     } else {
                         System.out.println("Player " + i + " is discarding..."); //should not draw: getting rid of hand, get smallest card on board, add points
-                        p[i].discard();
+                        deck.addDiscard(p[i].discard()); //adding to discard pile
                         int smallest = deck.getSmallestOnBoard(); 
                         p[i].addPoints(smallest);
                         for (int j = 0; j < p.length; j++) {
@@ -46,13 +49,14 @@ public class PiratePairsL {
 
 
                 if (!p[i].checkHand()) { // chekcing if the player has pairs in his hand
-                    p[i].discard();
+                    deck.addDiscard(p[i].discard());
                 }
                 System.out.print("Player " + i + " has in hand: ");
                 p[i].show();
                 
 
                 System.out.println("Player " + i + " has " + p[i].getPoints() + " points.");
+                System.out.println(cnt);
 
                 if(p[i].getPoints() > 21){ //ending game if reached 21 points (ending goal is modifiable)
                     System.out.println("PLAYER " + i + " IS THE LOSER!!!");

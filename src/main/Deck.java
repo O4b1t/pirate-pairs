@@ -1,9 +1,10 @@
 import java.util.Arrays;
 
 public class Deck {
-    int[] deck = new int[55];
-    int[] discard = new int[0];
-    int[] cardOnBoard = new int[0];
+    private int[] deck = new int[55];
+    private int[] discard = new int[0];
+    private int[] cardOnBoard = new int[0];
+
 
     public Deck(){
         int start = 0;
@@ -32,13 +33,16 @@ public class Deck {
         return deck.length;
     }
 
+
     public int getCard() {
         int temp = 0; //taking out top card each time
         int deckLength = deck.length;
         temp = deck[0];
-        int[] tempDeck = new int[deck.length-1]; //getting rid of the card picked
-        for (int i = 0; i < tempDeck.length; i++) {
-            tempDeck[i] = deck[i+1];
+        int[] tempDeck = new int[deck.length - 1];
+        if(tempDeck.length > 0){
+            for(int i = 0; i < tempDeck.length; i++){
+                tempDeck[i] = deck[i+ 1];
+            }
         }
         deck = tempDeck;
         if (deckLength <= 1) { //making sure there is always card in deck
@@ -56,16 +60,17 @@ public class Deck {
         return temp; //returning the top card to player
     }
 
-    public void addDiscard(int[] dis) {
+    public void addDiscard(int[] dis) { //adding all discarded cards to the existing discard pile
         int[] temp = new int[dis.length + discard.length];
         int start = 0;
         for (int i = 0; i < discard.length; i++) {
             temp[i] = discard[i];
-            start = i;
+            start = i + 1;
         }
         for (int i = 0; i < dis.length; i++) {
-            temp[start + 1 + i] = dis[i];
+            temp[start + i] = dis[i];
         }
+        discard = temp;
 
     }
 
